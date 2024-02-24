@@ -25,7 +25,7 @@ const initialState={
 function todoReducer(state=initialState,action){
 
     switch(action.type){
-        case "ADD_TODO":
+        case ADD_TODO:
             return{
                 ...state,
                 todos:[
@@ -36,10 +36,10 @@ function todoReducer(state=initialState,action){
                     }
                 ]
             }
-        case "TOGGLE_TODO":
+        case TOGGLE_TODO:
             return{
                 ...state,
-                todos:todos.map((todo,i)=>{
+                todos:state.todos.map((todo,i)=>{
                     if(i==action.index){
                         todo.completed=!todo.completed
                     }
@@ -51,5 +51,18 @@ function todoReducer(state=initialState,action){
             return state;
     }
 }
+
+// Creating store
+const store = redux.createStore(todoReducer);
+
+// dispatch actions (dispatchers)
+store.dispatch(addTodo("study at 8"));
+store.dispatch(addTodo("Office at 9am"));
+store.dispatch(toggleTodo(0));
+
+//read data from store (selectors)
+console.log(store.getState());
+
+
 
 
